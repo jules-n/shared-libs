@@ -1,0 +1,7 @@
+
+plugins {
+    id 'shared.libs.java-library-conventions'
+}
+
+dependencies {
+}
