@@ -1,7 +1,3 @@
-
-plugins {
-    id 'shared.libs.java-library-conventions'
-}
-
 dependencies {
+  implementation "io.lettuce:lettuce-core:${rootProject['lettuce.version']}"
 }
