@@ -4,12 +4,14 @@
 # /test.txt - ignore file named "test.txt" in the root of project directory
 # test.txt - ignore files named "test.txt" in any place in this repo
 
+# java artifacts
+*.jar
+*.war
 
-# Ignore Gradle project-specific cache directory
+# Gradle temporary artifacts
 /.gradle
-
-# Ignore Gradle build output directory
 build
+!/.gradle/wrapper/gradle-wrapper.jar
 
 # Intellij IDE
 /.idea
