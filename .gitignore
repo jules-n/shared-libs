@@ -1,5 +1,17 @@
-# Ignore Gradle project-specific cache directory
-.gradle
+# !!!!!!! IMPORTANT !!!!!!!!
+# gradle ignore patterns defined here are matched to files in any level deep
+# inside the file tree. Explanation by example:
+# /test.txt - ignore file named "test.txt" in the root of project directory
+# test.txt - ignore files named "test.txt" in any place in this repo
 
-# Ignore Gradle build output directory
+# java artifacts
+*.jar
+*.war
+
+# Gradle temporary artifacts
+/.gradle
 build
+!/.gradle/wrapper/gradle-wrapper.jar
+
+# Intellij IDE
+/.idea

@@ -1,4 +1,3 @@
-
 package shared.libs.nonFunctionalLib;
 
 class Greetings {
