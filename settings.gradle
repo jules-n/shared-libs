@@ -1,2 +1,2 @@
 rootProject.name = 'shared-libs'
-include('nonFunctionalLib')
+include 'non-functional-lib'
