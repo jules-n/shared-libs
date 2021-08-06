@@ -1,7 +1,10 @@
 package shared.libs.nonFunctionalLib;
 
+import java.util.Random;
+
 class Greetings {
     public static String helloThere() {
-        return "General Kenobi?";
+        var rndIndex = new Random().nextInt();
+        return "General Kenobi? - " + rndIndex;
     }
 }

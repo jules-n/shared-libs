@@ -9,6 +9,14 @@ subprojects {
         mavenLocal()
         mavenCentral()
     }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
+    }
 }
 
 wrapper {
