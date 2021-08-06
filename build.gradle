@@ -1,6 +1,9 @@
 subprojects {
-    apply plugin: 'java'
-    apply plugin: 'maven'
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+
+    // TODO: put correct name here
+    group = 'com.jules.ss'
 
     repositories {
         mavenLocal()
