@@ -4,6 +4,8 @@ subprojects {
 
     // TODO: put correct name here
     group = 'com.jules.ss'
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
 
     repositories {
         mavenLocal()
