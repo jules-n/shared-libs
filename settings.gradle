@@ -1,4 +1,5 @@
 rootProject.name = 'shared-libs'
 include 'non-functional-lib'
 include 'common-dtos'
+include 'converters'
 
