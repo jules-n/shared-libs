@@ -19,6 +19,17 @@ subprojects {
             }
         }
     }
+
+    dependencies {
+
+        //spring
+        implementation 'org.springframework.boot:spring-boot-starter-web:2.5.3'
+
+        //lombok
+        compileOnly 'org.projectlombok:lombok:1.18.20'
+        annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    }
 }
 
 wrapper {
