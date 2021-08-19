@@ -1,5 +1,6 @@
 syntax = "proto3";
 import "google/protobuf/empty.proto";
+package proto;
 
 message PipelineDevices{
   string pipelineId = 1;
