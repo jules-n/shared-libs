@@ -15,5 +15,4 @@ import java.util.Map;
 public class Port {
     private String name;
     private Event data;
-    private LocalDateTime time;
 }
