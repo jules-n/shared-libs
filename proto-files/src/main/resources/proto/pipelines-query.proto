@@ -1,0 +1,21 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+message PipelineDevices{
+  string pipelineId = 1;
+  repeated DeviceData devicesData = 2;
+}
+
+message DeviceData{
+  string deviceId = 1;
+  string port = 2;
+  string value = 3;
+}
+
+message PipelineQuery{
+  repeated PipelineDevices pipelineDevices = 1;
+}
+
+service PipelineRequest{
+  rpc send(PipelineQuery) returns (google.protobuf.Empty){}
+}
