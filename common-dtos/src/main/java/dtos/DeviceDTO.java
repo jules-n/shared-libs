@@ -13,5 +13,5 @@ import java.util.UUID;
 @Builder
 public class DeviceDTO {
     private UUID id;
-    private Event event;
+    private Port port;
 }

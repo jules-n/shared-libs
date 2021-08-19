@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -13,4 +15,5 @@ import lombok.NoArgsConstructor;
 public class Event {
     private String type;
     private Object value;
+    private LocalDateTime time;
 }
