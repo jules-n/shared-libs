@@ -14,5 +14,5 @@ import java.util.Map;
 @Builder
 public class Port {
     private String name;
-    private Event data;
+    private Event event;
 }
