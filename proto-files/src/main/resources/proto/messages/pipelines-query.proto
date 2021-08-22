@@ -1,6 +1,4 @@
 syntax = "proto3";
-import "google/protobuf/empty.proto";
-package proto;
 
 message PipelineDevices{
   string pipelineId = 1;
@@ -15,8 +13,4 @@ message DeviceData{
 
 message PipelineQuery{
   repeated PipelineDevices pipelineDevices = 1;
-}
-
-service PipelineRequest{
-  rpc send(PipelineQuery) returns (google.protobuf.Empty){}
 }
