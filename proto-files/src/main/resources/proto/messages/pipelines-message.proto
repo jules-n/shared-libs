@@ -1,16 +1,17 @@
 syntax = "proto3";
+package com.ynero.ss.pipeline.dto.proto;
 
-message PipelineDevices{
+message PipelineDevices {
   string pipelineId = 1;
   repeated DeviceData devicesData = 2;
 }
 
-message DeviceData{
+message DeviceData {
   string deviceId = 1;
   string port = 2;
   string value = 3;
 }
 
-message PipelineQuery{
+message PipelineQuery {
   repeated PipelineDevices pipelineDevices = 1;
 }
