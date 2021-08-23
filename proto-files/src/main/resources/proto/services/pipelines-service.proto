@@ -1,6 +1,6 @@
 syntax = "proto3";
 import "google/protobuf/empty.proto";
-import "proto/messages/pipelines-query.proto";
+import "proto/messages/pipelines-message.proto";
 
 service PipelineRequest{
   rpc receive(PipelineQuery) returns (google.protobuf.Empty){}
