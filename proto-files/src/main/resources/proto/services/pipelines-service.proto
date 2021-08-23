@@ -1,7 +1,9 @@
 syntax = "proto3";
+package com.ynero.ss.pipeline.grpc;
+
 import "google/protobuf/empty.proto";
 import "proto/messages/pipelines-message.proto";
 
-service PipelineRequest{
-  rpc receive(PipelineQuery) returns (google.protobuf.Empty){}
+service PipelineQueryReceiverService {
+  rpc receive(com.ynero.ss.pipeline.dto.proto.PipelineQuery) returns (google.protobuf.Empty){}
 }
