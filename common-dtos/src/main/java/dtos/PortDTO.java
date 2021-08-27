@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PortDTO {
     private String name;
-    private EventDTO eventDTO;
+    private EventDTO event;
 }

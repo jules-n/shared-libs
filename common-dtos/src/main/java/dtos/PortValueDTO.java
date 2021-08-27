@@ -12,10 +12,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PortValueDTO<T> {
+public class PortValueDTO {
     private UUID deviceId;
     private String tenantId;
     private String portName;
-    private T portValue;
+    private Object portValue;
     private LocalDateTime receivingTime;
 }
