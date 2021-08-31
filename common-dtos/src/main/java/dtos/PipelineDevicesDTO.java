@@ -15,5 +15,5 @@ import java.util.UUID;
 public class PipelineDevicesDTO {
     private UUID pipelineId;
     private List<UUID> deviceIds;
-    private String name;
+    private String portName;
 }
