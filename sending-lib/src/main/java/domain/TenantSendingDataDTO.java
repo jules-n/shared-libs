@@ -8,6 +8,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @EqualsAndHashCode(callSuper=false)
-public class TenantSendingData extends SendingData{
+public class TenantSendingDataDTO extends SendingData{
     private String tenantId;
 }

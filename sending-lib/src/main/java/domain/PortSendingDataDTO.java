@@ -8,6 +8,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=false)
-public class PortSendingData extends  DeviceSendingData{
+public class PortSendingDataDTO extends  DeviceSendingDataDTO{
     private String portName;
 }

@@ -10,6 +10,6 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SendingParameters {
-    private String way;
+    private String sendingClassName;
     private Map<String, String> parameters;
 }

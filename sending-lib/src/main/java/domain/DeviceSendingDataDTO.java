@@ -10,6 +10,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @SuperBuilder
 @EqualsAndHashCode(callSuper=false)
-public class DeviceSendingData extends TenantSendingData {
+public class DeviceSendingDataDTO extends TenantSendingDataDTO {
     private UUID deviceId;
 }
