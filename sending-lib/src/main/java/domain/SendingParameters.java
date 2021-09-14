@@ -11,5 +11,5 @@ import java.util.Map;
 @AllArgsConstructor
 public class SendingParameters {
     private String sendingClassName;
-    private Map<String, String> parameters;
+    private Map<String, Object> parameters;
 }
