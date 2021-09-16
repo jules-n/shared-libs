@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+version '0.0.1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //lettuce+redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.5.4'
+    implementation 'io.lettuce:lettuce-core:6.1.4.RELEASE'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
