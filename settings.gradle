@@ -4,4 +4,5 @@ include 'common-dtos'
 include 'converters'
 include 'proto-files'
 include 'sending-lib'
+include 'cache-lib'
 
