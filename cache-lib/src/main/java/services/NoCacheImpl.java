@@ -3,6 +3,7 @@ package services;
 import models.Entry;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class NoCacheImpl<K, V> implements CacheService<K, V>{
@@ -18,8 +19,8 @@ public class NoCacheImpl<K, V> implements CacheService<K, V>{
     }
 
     @Override
-    public V get(K key) {
-        return null;
+    public Optional<V> get(K key) {
+        return Optional.empty();
     }
 
     @Override
