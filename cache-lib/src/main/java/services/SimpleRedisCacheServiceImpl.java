@@ -4,6 +4,7 @@ import models.Entry;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class SimpleRedisCacheServiceImpl<K, V> implements CacheService<K, V> {
@@ -25,8 +26,9 @@ public class SimpleRedisCacheServiceImpl<K, V> implements CacheService<K, V> {
     }
 
     @Override
-    public V get(K key) {
-        return redisTemplate.opsForValue().get(key);
+    public Optional<V> get(K key) {
+        var result = redisTemplate.opsForValue().get(key);
+        return Optional.of(result);
     }
 
     @Override

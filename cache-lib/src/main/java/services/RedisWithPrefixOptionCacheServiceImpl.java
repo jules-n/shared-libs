@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -40,8 +41,9 @@ public class RedisWithPrefixOptionCacheServiceImpl<K, V> implements CacheService
     }
 
     @Override
-    public V get(K key) {
-        return redisTemplate.opsForValue().get(addPrefix(key));
+    public Optional<V> get(K key) {
+        var result = redisTemplate.opsForValue().get(addPrefix(key));
+        return Optional.of(result);
     }
 
     @Override
