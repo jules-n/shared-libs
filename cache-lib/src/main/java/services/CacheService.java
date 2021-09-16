@@ -1,5 +1,7 @@
 package services;
 
+import models.Entry;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
