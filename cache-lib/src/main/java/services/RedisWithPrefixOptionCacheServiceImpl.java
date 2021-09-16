@@ -43,7 +43,7 @@ public class RedisWithPrefixOptionCacheServiceImpl<K, V> implements CacheService
     @Override
     public Optional<V> get(K key) {
         var result = redisTemplate.opsForValue().get(addPrefix(key));
-        return Optional.of(result);
+        return Optional.ofNullable(result);
     }
 
     @Override

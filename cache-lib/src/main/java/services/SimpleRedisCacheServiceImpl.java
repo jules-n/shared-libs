@@ -28,7 +28,7 @@ public class SimpleRedisCacheServiceImpl<K, V> implements CacheService<K, V> {
     @Override
     public Optional<V> get(K key) {
         var result = redisTemplate.opsForValue().get(key);
-        return Optional.of(result);
+        return Optional.ofNullable(result);
     }
 
     @Override
