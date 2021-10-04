@@ -1,0 +1,22 @@
+plugins {
+    id 'java-library'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+version '0.0.2'
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.springframework.kafka:spring-kafka'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.5.3'
+    compileOnly platform('com.google.cloud:libraries-bom:20.9.0')
+    compileOnly 'com.google.cloud:google-cloud-pubsub'
+    compileOnly 'org.springframework.cloud:spring-cloud-gcp-autoconfigure:1.1.0.RELEASE'
+    compileOnly group: 'org.springframework.cloud', name: 'spring-cloud-gcp-pubsub', version: '1.2.1.RELEASE'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.boot:spring-boot-dependencies:2.5.3'
+    }
+}
