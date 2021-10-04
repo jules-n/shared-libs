@@ -7,10 +7,11 @@ import org.springframework.cloud.gcp.pubsub.core.PubSubTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(PubSubTemplate.class)
 public class PubSubAutoConfiguration {
-    @Bean
+
+    @Bean("pub/sub")
     @ConditionalOnMissingBean
     PubSubHealthPoint pubSubHealth() {
         return new PubSubHealthPoint();

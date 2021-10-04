@@ -12,7 +12,7 @@ import org.springframework.kafka.support.KafkaUtils;
 @ConditionalOnClass(org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration.class)
 public class KafkaAutoConfiguration {
 
-  @Bean
+    @Bean("kafka")
     @ConditionalOnMissingBean
     KafkaHealthPoint kafkaHealth() {
         return new KafkaHealthPoint();
