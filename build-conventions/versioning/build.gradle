@@ -1,0 +1,16 @@
+plugins {
+    id 'groovy-gradle-plugin'
+}
+
+repositories {
+    gradlePluginPortal()
+}
+
+//group = 'com.ynero.ss.gradle'
+group = 'my'
+
+dependencies {
+    implementation 'com.palantir.gradle.docker:gradle-docker:0.30.0'
+    // implementation 'com.palantir.gradle.gitversion:gradle-git-version:0.12.3'
+    implementation 'io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE'
+}

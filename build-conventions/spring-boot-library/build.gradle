@@ -1,0 +1,14 @@
+plugins {
+    id 'groovy-gradle-plugin'
+}
+
+repositories {
+    gradlePluginPortal()
+}
+
+group = 'my'
+
+dependencies {
+    implementation 'my:java-library'
+    implementation 'io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE'
+}

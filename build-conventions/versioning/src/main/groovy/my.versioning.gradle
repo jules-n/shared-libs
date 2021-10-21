@@ -1,0 +1,22 @@
+plugins {
+    // FIXME: this plugin doesn't work with Gradle-7 "includeBuild" feature used for local plugins
+    // id 'com.palantir.git-version'
+    id "com.palantir.docker"
+}
+
+println '--------------------------- plugin applied: versioning'
+
+//project.afterEvaluate {
+//    if (!plugins.hasPlugin('com.palantir.git-version')) {
+//        throw new GradleException('"com.palantir.git-version" plugin must be added explicitly to the project when ' +
+//                'using "com.ynero.ss.gradle.versioning" local plugin')
+//    }
+//
+//    ext {
+//        versionPrefix = project.name
+//        versionSeparator = '@'
+//    }
+//    version = getVersion(prefix: "${versionPrefix}${versionSeparator}")
+//}
+
+group = 'com.ynero.ss'

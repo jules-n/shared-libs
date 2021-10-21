@@ -1,0 +1,13 @@
+plugins {
+    id 'groovy-gradle-plugin'
+}
+
+repositories {
+    gradlePluginPortal()
+}
+
+group = 'my'
+
+dependencies {
+    implementation 'my:versioning'
+}

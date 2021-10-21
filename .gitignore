@@ -9,8 +9,8 @@
 *.war
 
 # Gradle temporary artifacts
-/.gradle
-build
+.gradle/
+build/
 !/.gradle/wrapper/gradle-wrapper.jar
 
 # Intellij IDE

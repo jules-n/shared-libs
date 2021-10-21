@@ -1,8 +1,14 @@
 rootProject.name = 'shared-libs'
-include 'non-functional-lib'
-include 'common-dtos'
-include 'converters'
-include 'proto-files'
-include 'sending-lib'
-include 'cache-lib'
+
+// "composite builds" gradle feature for local gradle plugins
+includeBuild 'build-conventions/versioning'
+includeBuild 'build-conventions/java-library'
+includeBuild 'build-conventions/spring-boot-library'
+
+//include 'non-functional-lib'
+//include 'common-dtos'
+//include 'converters'
+//include 'proto-files'
+//include 'sending-lib'
+//include 'cache-lib'
 include 'healthchecks'

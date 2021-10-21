@@ -1,0 +1,14 @@
+plugins {
+    id 'my.java-library'
+    id 'io.spring.dependency-management'
+}
+
+println '--------------------------- plugin applied: spring-boot-library'
+
+ext.set('spring.boot.version', '2.5.3')
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${property('spring.boot.version')}"
+    }
+}
