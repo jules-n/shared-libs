@@ -1,1 +1,4 @@
+plugins{
+    id "fr.brouillard.oss.gradle.jgitver" version "0.6.1"
+}
 version '1.0.5'
