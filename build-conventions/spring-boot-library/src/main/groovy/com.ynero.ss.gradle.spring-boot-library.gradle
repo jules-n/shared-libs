@@ -1,5 +1,5 @@
 plugins {
-    id 'my.java-library'
+    id 'com.ynero.ss.gradle.java-library'
     id 'io.spring.dependency-management'
 }
 

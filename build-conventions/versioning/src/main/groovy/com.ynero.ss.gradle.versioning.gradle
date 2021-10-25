@@ -1,0 +1,73 @@
+println '--------------------------- plugin applied: versioning'
+
+//project.afterEvaluate {
+//    if (!plugins.hasPlugin('com.palantir.git-version')) {
+//        throw new GradleException('"com.palantir.git-version" plugin must be added explicitly to the project when ' +
+//                'using "com.ynero.ss.gradle.versioning" local plugin')
+//    }
+//
+//    ext {
+//        versionPrefix = project.name
+//        versionSeparator = '@'
+//    }
+//    version = getVersion(prefix: "${versionPrefix}${versionSeparator}")
+//}
+
+group = 'com.ynero.ss'
+
+def sh(def workDir = project.rootDir, boolean exitOnErr = true, def command) {
+    var env = null // inherit all env vars from parent process
+    def procWorkDir = workDir ? workDir as File : null
+    def proc = command.execute env, procWorkDir
+    def (stdout, stderr) = [new StringBuffer(), new StringBuffer()]
+    proc.consumeProcessOutput(stdout, stderr)
+    def procErr = proc.waitFor()
+    if (procErr && exitOnErr) {
+        println "error:"
+        def stdoutText = stdout.toString()
+        def stderrText = stderr.toString()
+        if (stderrText) {
+            println "  stderr:\n${stderrText}"
+        }
+        if (stdoutText) {
+            println "  stdout:\n${stdoutText}"
+        }
+        System.exit(1)
+    }
+    stdout.toString()
+}
+
+def getVersion() {
+    sh 'git fetch -a'
+    def versionSuffix = "${project.name}@"
+    def allTags = sh('git tag --list').strip()
+            .readLines()
+            .findAll { it.startsWith versionSuffix }
+    def isDirty = sh('git status --porcelain').strip()
+    def allVersions = allTags.collect { it - versionSuffix }
+            .sort { v1, v2 -> toIntValue(v2) <=> toIntValue(v1) }
+    def currentTag = sh('git describe --tags').strip()
+    def isCleanTag = (currentTag - versionSuffix) =~ /^\d+\.\d+\.\d+$/
+    def isSnapshot = allTags && !isCleanTag
+    if (!allVersions) {
+        allVersions = ['0.0.0']
+    }
+    "${allVersions.first()}${isSnapshot ? '-SNAPSHOT' : ''}${isDirty ? '-dirty' : ''}"
+}
+
+def toIntValue(String semVer) {
+    def textParts = semVer.split '\\.'
+    // 1567      .6787   .6729
+    // x10k*10k  x10k    x1
+    (textParts[0].toInteger() * 10_000 * 10_000) +
+            (textParts[1].toInteger() * 10_000) +
+            (textParts[2].toInteger())
+}
+
+version = getVersion()
+
+task printVersion {
+    doLast {
+        println project.version
+    }
+}

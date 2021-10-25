@@ -1,5 +1,5 @@
 plugins {
-    id 'my.versioning'
+    id 'com.ynero.ss.gradle.versioning'
     id 'java-library'
     id 'maven-publish'
 }
