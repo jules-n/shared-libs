@@ -1,3 +1,7 @@
+plugins {
+    id 'com.ynero.ss.gradle.java-library'
+}
+
 dependencies {
 
     // https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_separation
@@ -5,13 +9,11 @@ dependencies {
     // "api" libs will be exposed to consumers and will be transitively pulled by consumers
     // consumers are allowed to become dependent on "api" elements of this lib
     // when "api" deps of already published dependency are added or removed, that may break consumers
-    api "io.lettuce:lettuce-core:${rootProject['lettuce.version']}"
+    api "io.lettuce:lettuce-core:${property('lettuce.version')}"
 
     // "implementation" dependencies won't leak into consumers' classpath
     // adding or removing "implementation" deps won't affect consumers
-    implementation "org.apache.commons:commons-lang3:${project['apache.commons.lang.version']}"
+    implementation "org.apache.commons:commons-lang3:${property('apache.commons.lang.version')}"
 
     // RULE OF THUMB: always add your dependencies to "implementation", unless you really need to specify it in "api"
 }
-
-version = '0.1.2'

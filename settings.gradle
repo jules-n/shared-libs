@@ -5,7 +5,7 @@ includeBuild 'build-conventions/versioning'
 includeBuild 'build-conventions/java-library'
 includeBuild 'build-conventions/spring-boot-library'
 
-//include 'non-functional-lib'
+include 'non-functional-lib'
 //include 'common-dtos'
 //include 'converters'
 //include 'proto-files'
