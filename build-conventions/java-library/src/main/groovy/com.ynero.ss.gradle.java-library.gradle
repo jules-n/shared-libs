@@ -31,3 +31,5 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:${property('lombok.version')}"
 
 }
+
+// TODO: configure all nexus related stuff here (repositories, publishing)
