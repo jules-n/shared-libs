@@ -1,1 +1,3 @@
-version '1.0.5'
+plugins {
+    id 'com.ynero.ss.gradle.java-library'
+}
