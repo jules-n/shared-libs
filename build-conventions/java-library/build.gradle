@@ -6,8 +6,8 @@ repositories {
     gradlePluginPortal()
 }
 
-group = 'my'
+group = 'com.ynero.ss.gradle'
 
 dependencies {
-    implementation 'my:versioning'
+    implementation 'com.ynero.ss.gradle:versioning'
 }
