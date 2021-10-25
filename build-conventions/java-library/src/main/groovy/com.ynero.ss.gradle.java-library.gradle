@@ -4,8 +4,6 @@ plugins {
     id 'maven-publish'
 }
 
-println '--------------------------- plugin applied: java-library'
-
 ext.setProperty('lombok.version', '1.18.22')
 
 sourceCompatibility = '11'

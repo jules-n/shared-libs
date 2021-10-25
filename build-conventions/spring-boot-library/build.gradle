@@ -10,5 +10,6 @@ group = 'com.ynero.ss.gradle'
 
 dependencies {
     implementation 'com.ynero.ss.gradle:java-library'
+    implementation 'org.springframework.boot:spring-boot-gradle-plugin:2.5.3'
     implementation 'io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE'
 }

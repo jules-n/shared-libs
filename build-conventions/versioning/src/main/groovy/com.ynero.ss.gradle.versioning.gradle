@@ -1,18 +1,3 @@
-println '--------------------------- plugin applied: versioning'
-
-//project.afterEvaluate {
-//    if (!plugins.hasPlugin('com.palantir.git-version')) {
-//        throw new GradleException('"com.palantir.git-version" plugin must be added explicitly to the project when ' +
-//                'using "com.ynero.ss.gradle.versioning" local plugin')
-//    }
-//
-//    ext {
-//        versionPrefix = project.name
-//        versionSeparator = '@'
-//    }
-//    version = getVersion(prefix: "${versionPrefix}${versionSeparator}")
-//}
-
 group = 'com.ynero.ss'
 
 def sh(def workDir = project.rootDir, boolean exitOnErr = true, def command) {
