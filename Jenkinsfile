@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    environment {
-        CURRENT_GIT_BRANCH = env.GIT_BRANCH
-    }
     stages {
         stage('calculate versions') {
             env.CURRENT_VERSIONS = [
