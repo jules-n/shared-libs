@@ -4,8 +4,7 @@ pipeline {
         stage('calculate versions') {
           steps {
             script {
-            sh "ls -l > commandResult"
-                              result = readFile('commandResult').trim()
+            def output = sh returnStdout: true, script: 'ls -l'
                 env.CURRENT_VERSIONS = [
                    'non-functional-lib',
                   'common-dtos',
