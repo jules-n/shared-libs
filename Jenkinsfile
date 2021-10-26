@@ -4,17 +4,6 @@ pipeline {
         CURRENT_GIT_BRANCH = env.GIT_BRANCH
     }
     stages {
-        def incrementPatch(String version, boolean minor, boolean major){
-            node{
-                def parts = version.split('\\.');
-                if (major) {
-                def major = parts[0] as int
-                return
-                }
-                def patch = parts[2] as int
-                return patch+1
-            }
-        }
         stage('calculate versions') {
             env.CURRENT_VERSIONS = [
             'non-functional-lib',
