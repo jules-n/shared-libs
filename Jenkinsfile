@@ -2,22 +2,24 @@ pipeline {
     agent any
     stages {
         stage('calculate versions') {
+          steps{
             env.CURRENT_VERSIONS = [
-            'non-functional-lib',
-            'common-dtos',
-            'converters',
-            'proto-files',
-            'sending-lib',
-            'cache-lib',
-            'healthchecks'
-            ].collectEntries { subModuleName ->
-                def version = sh("./gradlew -q :${subModuleName}:printVersion")
-                [subModuleName: version - '-SNAPSHOT' - '-dirty']
-            }
+              'non-functional-lib',
+              'common-dtos',
+              'converters',
+              'proto-files',
+              'sending-lib',
+              'cache-lib',
+              'healthchecks'
+              ].collectEntries { subModuleName ->
+                  def version = sh("./gradlew -q :${subModuleName}:printVersion")
+                  [subModuleName: version - '-SNAPSHOT' - '-dirty']
+              }
             env.NEXT_VERSIONS = env.CURRENT_VERSIONS.collectEntries { subModuleName, version ->
                 // TODO: increment patch version (1.5.15 -> 1.5.16)
                 [(subModuleName), incrementVersion(version, false, false)]
             }
+          }
         }
        stage('build healthchecks') {
            when {
