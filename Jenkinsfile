@@ -4,8 +4,8 @@ pipeline {
         stage('calculate versions') {
           steps {
             script {
-                env.CURRENT_VERSIONS = [
-                  'non-functional-lib',
+                env.CURRENT_VERSIONS = []
+                  /* 'non-functional-lib',
                   'common-dtos',
                   'converters',
                   'proto-files',
@@ -15,7 +15,7 @@ pipeline {
                   ].collectEntries { subModuleName ->
                       def version = sh("./gradlew -q :${subModuleName}:printVersion")
                       [subModuleName: version - '-SNAPSHOT' - '-dirty']
-                  }
+                  } */
                   sh "./gradlew -q :non-functional-lib:printVersion"
                 env.NEXT_VERSIONS = env.CURRENT_VERSIONS.collectEntries { subModuleName, version ->
                     // TODO: increment patch version (1.5.15 -> 1.5.16)
