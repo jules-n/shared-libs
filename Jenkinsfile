@@ -19,7 +19,7 @@ pipeline {
             }
             env.NEXT_VERSIONS = env.CURRENT_VERSIONS.collectEntries { subModuleName, version ->
                 // TODO: increment patch version (1.5.15 -> 1.5.16)
-                [(subModuleName), incrementVersion(version)]
+                [(subModuleName), incrementVersion(version, false, false)]
             }
         }
        stage('build healthchecks') {
