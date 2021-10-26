@@ -25,7 +25,7 @@ pipeline {
        stage('build healthchecks') {
            when {
               allOf {
-                 branch 'main';
+                 branch 'origin/main';
                  // "glob" pattern
                  changes 'healthchecks/**'
               }
@@ -54,18 +54,18 @@ pipeline {
                def rsaKey = credentials('jenkins-dev-event-receiver-id-rsa') */
            }
        }
-       def incrementVersion(String version, boolean isMinor, boolean isMajor) {
-           def parts = version.split('\\.');
-           if (isMajor) {
-               def major = parts[0] as int
-               return String.valueOf(major+1).concat('.0.0')
-           }
-           if(isMinor) {
-               def minor = parts[1] as int
-               return parts[0]+'.'+String.valueOf(minor+1)+'.0'
-           }
-           def patch = parts[2] as int
-           return parts[0]+'.'+parts[1]+'.'+String.valueOf(patch+1)
-       }
     }
+    def incrementVersion(String version, boolean isMinor, boolean isMajor) {
+               def parts = version.split('\\.');
+               if (isMajor) {
+                   def major = parts[0] as int
+                   return String.valueOf(major+1).concat('.0.0')
+               }
+               if(isMinor) {
+                   def minor = parts[1] as int
+                   return parts[0]+'.'+String.valueOf(minor+1)+'.0'
+               }
+               def patch = parts[2] as int
+               return parts[0]+'.'+parts[1]+'.'+String.valueOf(patch+1)
+           }
 }
