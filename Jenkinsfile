@@ -5,6 +5,7 @@ pipeline {
           steps {
             script {
             def output = sh returnStdout: true, script: 'ls -l'
+            echo output
                 env.CURRENT_VERSIONS = [
                    'non-functional-lib',
                   'common-dtos',
