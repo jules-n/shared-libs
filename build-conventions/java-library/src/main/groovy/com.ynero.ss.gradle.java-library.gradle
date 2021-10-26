@@ -7,6 +7,9 @@ plugins {
 ext.set('lombok.version', '1.18.22')
 ext.set('lettuce.version', '6.1.4.RELEASE')
 ext.set('apache.commons.lang.version', '3.12.0')
+ext.set('io.grpc:grpc-protobuf','1.39.0')
+ext.set('io.grpc:grpc-stub','1.39.0')
+ext.set('io.grpc:grpc-netty','1.39.0')
 
 sourceCompatibility = '11'
 targetCompatibility = '11'
