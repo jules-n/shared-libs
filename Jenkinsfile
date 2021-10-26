@@ -28,11 +28,11 @@ pipeline {
               allOf {
                  branch 'origin/main';
                  // "glob" pattern
-                 changes 'healthchecks/**'
+                 //changes 'healthchecks/**'
               }
            }
            steps {
-
+             script {
                // 1. tag as ENV_NEXT_VERSIONS['healthchecks'] - only if on "main" branch
                sh(script: "git tag $tagName")
                // GIT_BRANCH, (google for "jenkins GIT_BRANCH")
@@ -54,6 +54,7 @@ pipeline {
                /* password = credentials('nexus-password-name')
                def rsaKey = credentials('jenkins-dev-event-receiver-id-rsa') */
            }
+         }
        }
     }
 }
