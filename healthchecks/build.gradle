@@ -8,7 +8,10 @@ dependencies {
     api 'org.springframework.boot:spring-boot-starter-actuator'
 
     // these may be missing in runtime to make healthchecks auto-detectable
+    //kafka
     compileOnly 'org.springframework.kafka:spring-kafka'
+
+    //pub-sub
     compileOnly 'com.google.cloud:google-cloud-pubsub'
     compileOnly 'com.google.cloud:spring-cloud-gcp-autoconfigure'
     compileOnly 'com.google.cloud:spring-cloud-gcp-pubsub'
