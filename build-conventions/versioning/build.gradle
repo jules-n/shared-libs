@@ -3,7 +3,12 @@ plugins {
 }
 
 repositories {
+    mavenLocal()
     gradlePluginPortal()
 }
 
 group = 'com.ynero.ss.gradle'
+
+dependencies {
+    implementation 'org.jfrog.buildinfo:build-info-extractor-gradle:4.24.20'
+}
