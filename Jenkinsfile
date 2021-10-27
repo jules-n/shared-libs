@@ -6,7 +6,7 @@ pipeline {
                 allOf {
                     branch comparator: 'REGEXP', pattern: 'main'
                     // "glob" pattern
-                    changes 'healthchecks/**'
+                    changeset 'healthchecks/**'
                 }
             }
             steps {
