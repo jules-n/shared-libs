@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment {
         SUBMODULE_NAME = 'healthchecks'
-        GIT_PRIVATE_KEY = credentials("jenkins-dev-event-receiver-id-rsa")
     }
     stages {
         stage('calculate version') {

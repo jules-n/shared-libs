@@ -21,7 +21,7 @@ def sh(def workDir = project.rootDir, boolean exitOnErr = true, def command) {
 }
 
 def getVersion() {
-    sh "git -c core.sshCommand=\"ssh -i ${System.getenv('GIT_PRIVATE_KEY')}\" fetch -a"
+    sh(null, false, "git fetch -a")
     def versionSuffix = "${project.name}@"
     def allTags = sh('git tag --list').strip()
             .readLines()
