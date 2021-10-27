@@ -1,0 +1,71 @@
+pipeline {
+    agen any
+    environment {
+        SUBMODULE_NAME = 'healthchecks'
+    }
+    stages {
+        stage('calculate version') {
+            steps {
+                script {
+                    env.CURRENT_VERSION = sh(script: "./gradlew -q :${SUBMODULE_NAME}:printVersion", returnStdout: true)
+                    env.NEXT_VERSION = incrementVersion(env.CURRENT_VERSION - '-SNAPSHOT' - '-dirty')
+                    echo "currentVersion=${env.CURRENT_VERSION}, nextVersions=${env.NEXT_VERSION}"
+                }
+            }
+        }
+        stage('build') {
+            steps {
+                script {
+                    sh(script: "git tag -a $NEXT_VERSION -m $NEXT_VERSION")
+                    // add "-x integrationTests" if integ tests are used
+                    sh "./gradlew :${SUBMODULE_NAME}:build -x test"
+
+//                    withCredentials([usernamePassword(credentialsId: '', usernameVariable: '', passwordVariable: '')]) {
+//                        sh "./gradlew healthchecks:artifactoryPublish"
+//                    }
+                    // 3. if everything is fine - push tag         - only if on "main" branch
+                    //     else delete tag
+                    // 4.
+                    //    publish should be configured for our nexus
+                    /* password = credentials('nexus-password-name')
+                    def rsaKey = credentials('jenkins-dev-event-receiver-id-rsa') */
+                }
+            }
+        }
+        stage('test') {
+            steps {
+                script {
+                    sh "./gradlew :${SUBMODULE_NAME}:test"
+                }
+            }
+        }
+        // TODO: add "integration test" stage if exists
+        stage('publish') {
+            steps {
+                script {
+                    sh(script: "git push origin --tags")
+                    sh "./gradlew :${SUBMODULE_NAME}:artifactoryPublish"
+                }
+            }
+        }
+    }
+    post {
+        failure {
+            sh(script: "git tag -d $NEXT_VERSION || true")
+        }
+    }
+}
+
+def currentVersion(String submoduleName) {
+    sh(script: "./gradlew -q :${subModuleName}:printVersion", returnStdout: true)
+}
+
+def incrementVersion(String version, boolean incMajor = false, boolean incMinor = false, boolean incPatch = true) {
+    def parts = version.split('\\.')
+    def major = parts[0] as int
+    def minor = parts[1] as int
+    def patch = parts[2] as int
+    incMajor ? "${major + 1}.0.0"
+            : incMinor ? "${major}.${minor + 1}.0"
+            : "${major}.${minor}.${patch + 1}"
+}
