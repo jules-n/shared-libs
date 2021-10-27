@@ -24,10 +24,13 @@ artifactory {
             username = System.getenv('SS_DEV_ARTIFACTORY_USERNAME')
             password = System.getenv('SS_DEV_ARTIFACTORY_PASSWORD')
         }
-        artifact jar
     }
 }
 
 artifactoryPublish {
-    publications('mavenJava')
+    publications {
+        mavenJava(MavenPublication){
+            artifact jar
+        }
+    }
 }
