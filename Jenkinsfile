@@ -14,7 +14,7 @@ pipeline {
                             'healthchecks'
                     ].collectEntries { subModuleName ->
                         echo "getting current version: ${subModuleName}"
-                        def version = sh("./gradlew -q :${subModuleName}:printVersion")
+                        def version = sh(script: "./gradlew -q :${subModuleName}:printVersion", returnStdout: true)
                         echo "current version : ${subModuleName} - ${version}"
                         [subModuleName: version - '-SNAPSHOT' - '-dirty']
                     }
