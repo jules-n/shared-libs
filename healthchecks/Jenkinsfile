@@ -16,7 +16,11 @@ pipeline {
         stage('build') {
             steps {
                 script {
-                    sh(script: "git tag -a $NEXT_VERSION -m $NEXT_VERSION")
+                    withCredentials([gitUsernamePassword(credentialsId: 'jenkins-dev-event-receiver-id-rsa',
+                                     gitToolName: 'git-tool')]) {
+                      sh(script: "git tag -a $NEXT_VERSION -m $NEXT_VERSION")
+                    }
+
                     // add "-x integrationTests" if integ tests are used
                     sh "./gradlew :${SUBMODULE_NAME}:build -x test"
 
@@ -43,7 +47,9 @@ pipeline {
         stage('publish') {
             steps {
                 script {
+                    withCredentials([gitUsernamePassword(credentialsId: 'jenkins-dev-event-receiver-id-rsa', gitToolName: 'git-tool')]) {
                     sh(script: "git push origin --tags")
+                    }
                     sh "./gradlew :${SUBMODULE_NAME}:artifactoryPublish"
                 }
             }
