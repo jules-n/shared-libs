@@ -4,7 +4,7 @@ pipeline {
         stage('calculate versions') {
             steps {
                 script {
-                    env.CURRENT_VERSIONS = [
+                    def currentVersions = [
                             'non-functional-lib',
                             'common-dtos',
                             'converters',
@@ -18,11 +18,13 @@ pipeline {
                         echo "current version : ${subModuleName} - ${version}"
                         [subModuleName: version - '-SNAPSHOT' - '-dirty']
                     }
-                    env.NEXT_VERSIONS = env.CURRENT_VERSIONS.collectEntries { subModuleName, version ->
+                    def nextVersions = currentVersions.collectEntries { subModuleName, version ->
                         def nextVersion = incrementVersion(version)
                         echo "next version : ${subModuleName} - ${nextVersion}"
                         [(subModuleName), nextVersion]
                     }
+                    env.CURRENT_VERSIONS = currentVersions
+                    env.NEXT_VERSIONS = nextVersions
                 }
             }
         }
