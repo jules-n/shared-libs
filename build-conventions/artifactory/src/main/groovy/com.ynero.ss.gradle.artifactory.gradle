@@ -1,0 +1,32 @@
+plugins {
+    id 'com.jfrog.artifactory'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url "http://ss-dev-jenkins:8081/artifactory/libs-releases"
+        allowInsecureProtocol true
+        credentials {               // Optional resolver credentials (leave out to use anonymous resolution)
+            username = System.getenv('SS_DEV_ARTIFACTORY_USERNAME')
+            password = System.getenv('SS_DEV_ARTIFACTORY_PASSWORD')
+        }
+    }
+}
+
+artifactory {
+    contextUrl = 'http://ss-dev-jenkins:8081/artifactory'
+    publish {
+        contextUrl = 'http://ss-dev-jenkins:8081/artifactory'
+        repository {
+            repoKey = 'ss-artifacts'
+            username = System.getenv('SS_DEV_ARTIFACTORY_USERNAME')
+            password = System.getenv('SS_DEV_ARTIFACTORY_PASSWORD')
+        }
+    }
+}
+
+artifactoryPublish {
+    publications('mavenJava')
+}

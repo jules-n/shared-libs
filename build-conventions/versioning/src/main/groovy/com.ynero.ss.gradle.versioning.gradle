@@ -1,10 +1,3 @@
-// TODO: extract publishing setup into a separate gradle conventions plugin
-plugins {
-    id 'com.jfrog.artifactory'
-}
-
-group = 'com.ynero.ss'
-
 def sh(def workDir = project.rootDir, boolean exitOnErr = true, def command) {
     var env = null // inherit all env vars from parent process
     def procWorkDir = workDir ? workDir as File : null
@@ -38,7 +31,7 @@ def getVersion() {
             .sort { v1, v2 -> toIntValue(v2) <=> toIntValue(v1) }
     def currentTag = sh(null, false, 'git describe --tags').strip()
     def isCleanTag = (currentTag - versionSuffix) =~ /^\d+\.\d+\.\d+$/
-    def isSnapshot = allTags && !isCleanTag
+    def isSnapshot = !isCleanTag
     if (!allVersions) {
         allVersions = ['0.0.0']
     }
@@ -59,39 +52,5 @@ version = getVersion()
 task printVersion {
     doLast {
         println project.version
-    }
-}
-
-
-// TODO: extract publishing setup into a separate gradle conventions plugin
-
-repositories {
-    maven {
-        +url "http://ss-dev-jenkins:8081/artifactory/libs-releases"
-        credentials {               // Optional resolver credentials (leave out to use anonymous resolution)
-            username = System.getenv('SS_DEV_ARTIFACTORY_USERNAME')
-            password = System.getenv('SS_DEV_ARTIFACTORY_PASSWORD')
-        }
-    }
-}
-
-artifactory {
-    +contextUrl = 'http://ss-dev-jenkins:8081/artifactory'
-    //The base Artifactory URL if not overridden by the publisher/resolver
-    publish {
-        contextUrl = 'http://ss-dev-jenkins:8081/artifactory'   //The base Artifactory URL for the publisher
-        //A closure defining publishing information
-        repository {
-            +repoKey = 'ss-artifacts'
-            +username = System.getenv('SS_DEV_ARTIFACTORY_USERNAME')
-            password = System.getenv('SS_DEV_ARTIFACTORY_PASSWORD')
-        }
-    }
-    defaults {
-        //List of Gradle Publications (names or objects) from which to collect the list of artifacts to be deployed
-        // to Artifactory.
-        //If you'd like to deploy the artifacts from all the publications defined in the Gradle script, you can set
-        // the 'ALL_PUBLICATIONS' string, instead of the publication names.
-        publications('mavenJava')
     }
 }

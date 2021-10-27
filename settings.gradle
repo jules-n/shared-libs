@@ -4,6 +4,7 @@ rootProject.name = 'shared-libs'
 includeBuild 'build-conventions/versioning'
 includeBuild 'build-conventions/java-library'
 includeBuild 'build-conventions/spring-boot-library'
+includeBuild 'build-conventions/artifactory'
 
 include 'non-functional-lib'
 include 'common-dtos'
