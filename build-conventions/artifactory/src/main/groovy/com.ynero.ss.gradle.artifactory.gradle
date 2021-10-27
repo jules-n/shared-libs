@@ -16,9 +16,9 @@ repositories {
 }
 
 artifactory {
-    contextUrl = 'http://ss-dev-jenkins:8081/artifactory'
+    contextUrl = 'http://ss-jenkins-dev:8081/artifactory/ss-artifacts/'
     publish {
-        contextUrl = 'http://ss-dev-jenkins:8081/artifactory'
+        contextUrl = 'http://ss-jenkins-dev:8081/artifactory/ss-artifacts/'
         repository {
             repoKey = 'ss-artifacts'
             username = System.getenv('SS_DEV_ARTIFACTORY_USERNAME')
