@@ -58,9 +58,7 @@ pipeline {
         failure {
             sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
             sh(script: "git tag -d $NEXT_VERSION || true")
-            }
-            sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
-                        sh(script: "git push --delete origin $NEXT_VERSION || true")
+            sh(script: "git push --delete origin $NEXT_VERSION || true")
             }
         }
     }
