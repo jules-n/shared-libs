@@ -1,5 +1,5 @@
 pipeline {
-    agen any
+    agent any
     environment {
         SUBMODULE_NAME = 'healthchecks'
     }
