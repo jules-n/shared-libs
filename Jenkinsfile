@@ -4,8 +4,6 @@ pipeline {
         stage('calculate versions') {
           steps {
             script {
-            def output = sh returnStdout: true, script: 'ls -l'
-            echo output
                 env.CURRENT_VERSIONS = [
                    'non-functional-lib',
                   'common-dtos',
@@ -18,7 +16,6 @@ pipeline {
                       def version = sh("./gradlew -q :${subModuleName}:printVersion")
                       [subModuleName: version - '-SNAPSHOT' - '-dirty']
                   }
-
                 env.NEXT_VERSIONS = env.CURRENT_VERSIONS.collectEntries { subModuleName, version ->
                     // TODO: increment patch version (1.5.15 -> 1.5.16)
                     [(subModuleName), incrementVersion(version, false, false)]
@@ -49,10 +46,12 @@ pipeline {
                   return
                }
                sh(script: "git push origin --tags")
-
+               withCredentials([usernamePassword(credentialsId: '', usernameVariable: '', passwordVariable: '')]) {
+                 sh "./gradlew healthchecks:artifactoryPublish"
+               }
                // 3. if everything is fine - push tag         - only if on "main" branch
                //     else delete tag
-               // 4. ./gradlew publish
+               // 4.
                //    publish should be configured for our nexus
                /* password = credentials('nexus-password-name')
                def rsaKey = credentials('jenkins-dev-event-receiver-id-rsa') */

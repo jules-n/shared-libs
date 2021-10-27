@@ -12,3 +12,14 @@ dependencies {
     compileOnly 'com.google.cloud:spring-cloud-gcp-autoconfigure'
     compileOnly 'com.google.cloud:spring-cloud-gcp-pubsub'
 }
+
+/*artifactory {
+    publish {
+        contextUrl = 'http://ss-dev-jenkins:8081/artifactory'
+        repository {
+            repoKey = ""
+            username = ""
+            password = ""
+        }
+    }
+}*/

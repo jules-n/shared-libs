@@ -17,7 +17,7 @@ def sh(def workDir = project.rootDir, boolean exitOnErr = true, def command) {
         if (stdoutText) {
             println "  stdout:\n${stdoutText}"
         }
-        System.exit(1)
+        throw new GradleException("Shell command failed: $command")
     }
     stdout.toString()
 }
@@ -31,7 +31,7 @@ def getVersion() {
     def isDirty = sh('git status --porcelain').strip()
     def allVersions = allTags.collect { it - versionSuffix }
             .sort { v1, v2 -> toIntValue(v2) <=> toIntValue(v1) }
-    def currentTag = sh('git describe --tags').strip()
+    def currentTag = sh(null, false, 'git describe --tags').strip()
     def isCleanTag = (currentTag - versionSuffix) =~ /^\d+\.\d+\.\d+$/
     def isSnapshot = allTags && !isCleanTag
     if (!allVersions) {
