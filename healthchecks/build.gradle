@@ -2,7 +2,13 @@ plugins {
     id 'com.ynero.ss.gradle.spring-boot-library'
     id 'com.ynero.ss.gradle.artifactory'
 }
+bootJar {
+    enabled = false
+}
 
+jar {
+    enabled = true
+}
 dependencies {
     api 'org.springframework.boot:spring-boot-starter-web'
     api 'org.springframework.boot:spring-boot-starter-actuator'
