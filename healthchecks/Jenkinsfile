@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         SUBMODULE_NAME = 'healthchecks'
-        TAG = 'healthchecks@0.0.0'
+        TAG = 'undefined'
     }
     stages {
         stage('calculate version') {
