@@ -18,7 +18,7 @@ pipeline {
         }
         stage('build') {
             environment {
-                TAG = env.SUBMODULE_NAME+'@'+env.NEXT_VERSION
+                TAG = SUBMODULE_NAME+'@'+NEXT_VERSION
             }
             steps {
                 script {
@@ -62,7 +62,7 @@ pipeline {
     }
     post {
         environment {
-            TAG = env.SUBMODULE_NAME+'@'+env.NEXT_VERSION
+            TAG = SUBMODULE_NAME+'@'+NEXT_VERSION
         }
         failure {
              sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
