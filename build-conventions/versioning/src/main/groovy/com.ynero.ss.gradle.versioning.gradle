@@ -30,7 +30,7 @@ def getVersion() {
     def isDirty = sh('git status --porcelain').strip()
     def allVersions = allTags.collect { it - versionSuffix }
             .sort { v1, v2 -> toIntValue(v2) <=> toIntValue(v1) }
-    println allVersions
+   // println allVersions
     def currentTag = sh(null, false, 'git describe --tags').strip()
     def isCleanTag = (currentTag - versionSuffix) =~ /^\d+\.\d+\.\d+$/
     def isSnapshot = !isCleanTag

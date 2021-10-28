@@ -2,6 +2,9 @@ pipeline {
     agent any
     environment {
         SUBMODULE_NAME = 'healthchecks'
+        SS_DEV_ARTIFACTORY_USERNAME = credentials("jenkins-artifactory-username")
+        SS_DEV_ARTIFACTORY_PASSWORD = credentials("jenkins-artifactory-password")
+        TAG = 'set up'
     }
     stages {
         stage('calculate version') {
@@ -14,9 +17,11 @@ pipeline {
             }
         }
         stage('build') {
+            environment {
+                TAG = env.SUBMODULE_NAME+'@'+env.NEXT_VERSION
+            }
             steps {
                 script {
-                    def TAG = env.SUBMODULE_NAME+'@'+env.NEXT_VERSION;
                     sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
                       sh(script: "git tag -a $TAG -m $TAG")
                     }
@@ -56,17 +61,14 @@ pipeline {
         }
     }
     post {
+        environment {
+            TAG = env.SUBMODULE_NAME+'@'+env.NEXT_VERSION
+        }
         failure {
-            steps {
-                 script {
-                      def TAG = env.SUBMODULE_NAME+'@'+env.NEXT_VERSION;
-                      sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
-                      sh(script: "git tag -d $TAG || true")
-                      sh(script: "git push --delete origin $TAG || true")
-                      }
-                 }
-            }
-
+             sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
+             sh(script: "git tag -d $TAG || true")
+             sh(script: "git push --delete origin $TAG || true")
+             }
         }
     }
 }
