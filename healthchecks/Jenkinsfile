@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
-                          sh(script: "git tag -a ${SUBMODULE_NAME+'@'+NEXT_VERSION} -m $TAG")
+                          sh(script: "git tag -a ${SUBMODULE_NAME+'@'+env.NEXT_VERSION} -m $TAG")
                     }
                     // add "-x integrationTests" if integ tests are used
                     sh "./gradlew :${SUBMODULE_NAME}:build -x test"
@@ -63,8 +63,8 @@ pipeline {
     post {
         failure {
              sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
-                  sh(script: "git tag -d ${SUBMODULE_NAME+'@'+NEXT_VERSION} || true")
-                  sh(script: "git push --delete origin ${SUBMODULE_NAME+'@'+NEXT_VERSION} || true")
+                  sh(script: "git tag -d ${SUBMODULE_NAME+'@'+env.NEXT_VERSION} || true")
+                  sh(script: "git push --delete origin ${SUBMODULE_NAME+'@'+env.NEXT_VERSION} || true")
              }
         }
     }
