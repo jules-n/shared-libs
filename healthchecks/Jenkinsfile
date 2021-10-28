@@ -10,6 +10,7 @@ pipeline {
                     env.CURRENT_VERSION = sh(script: "./gradlew -q :${SUBMODULE_NAME}:printVersion", returnStdout: true)
                     env.NEXT_VERSION = incrementVersion(env.CURRENT_VERSION - '-SNAPSHOT' - '-dirty')
                     echo "currentVersion=${env.CURRENT_VERSION}, nextVersions=${env.NEXT_VERSION}"
+                    env.TAG = env.SUBMODULE_NAME+'@'+env.NEXT_VERSION
                 }
             }
         }
@@ -17,7 +18,7 @@ pipeline {
             steps {
                 script {
                     sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
-                      sh(script: "git tag -a $NEXT_VERSION -m $NEXT_VERSION")
+                      sh(script: "git tag -a $TAG -m $TAG")
                     }
 
                     // add "-x integrationTests" if integ tests are used
@@ -57,8 +58,8 @@ pipeline {
     post {
         failure {
             sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
-            sh(script: "git tag -d $NEXT_VERSION || true")
-            sh(script: "git push --delete origin $NEXT_VERSION || true")
+            sh(script: "git tag -d $TAG || true")
+            sh(script: "git push --delete origin $TAG || true")
             }
         }
     }
