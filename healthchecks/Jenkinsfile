@@ -57,11 +57,16 @@ pipeline {
     }
     post {
         failure {
-            def TAG = env.SUBMODULE_NAME+'@'+env.NEXT_VERSION;
-            sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
-            sh(script: "git tag -d $TAG || true")
-            sh(script: "git push --delete origin $TAG || true")
+            steps {
+                 script {
+                      def TAG = env.SUBMODULE_NAME+'@'+env.NEXT_VERSION;
+                      sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
+                      sh(script: "git tag -d $TAG || true")
+                      sh(script: "git push --delete origin $TAG || true")
+                      }
+                 }
             }
+
         }
     }
 }
