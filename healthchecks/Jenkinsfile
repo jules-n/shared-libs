@@ -19,7 +19,7 @@ pipeline {
         stage('build') {
             steps {
                 script {
-                    withEnv(["TAG=${SUBMODULE_NAME}+'@'+${NEXT_VERSION}"]) {
+                    withEnv(["TAG=${env.SUBMODULE_NAME}+'@'+${env.NEXT_VERSION}"]) {
                         sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
                               sh(script: "git tag -a $TAG -m $TAG")
                         }
@@ -62,7 +62,7 @@ pipeline {
     }
     post {
         failure {
-             withEnv(["TAG=${SUBMODULE_NAME}+'@'+${NEXT_VERSION}"]) {
+             withEnv(["TAG=${env.SUBMODULE_NAME}+'@'+${env.NEXT_VERSION}"]) {
                    sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
                         sh(script: "git tag -d $TAG || true")
                         sh(script: "git push --delete origin $TAG || true")
