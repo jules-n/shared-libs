@@ -1,4 +1,5 @@
 plugins {
+    id 'maven-publish'
     id 'com.jfrog.artifactory'
 }
 
@@ -6,7 +7,7 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven {
-        url "http://ss-dev-jenkins:8082/artifactory/ss-artifacts/"
+        url "http://ss-dev-jenkins:8081/artifactory/ss-artifacts/"
         allowInsecureProtocol true
         credentials {               // Optional resolver credentials (leave out to use anonymous resolution)
             username = System.getenv('SS_DEV_ARTIFACTORY_USERNAME')
@@ -16,9 +17,9 @@ repositories {
 }
 
 artifactory {
-    contextUrl = 'http://ss-jenkins-dev:8082/artifactory/'
+    contextUrl = 'http://ss-dev-jenkins:8081/artifactory/'
     publish {
-        contextUrl = 'http://ss-jenkins-dev:8082/artifactory/'
+        contextUrl = 'http://ss-dev-jenkins:8081/artifactory/'
         repository {
             repoKey = 'ss-artifacts'
             username = System.getenv('SS_DEV_ARTIFACTORY_USERNAME')
