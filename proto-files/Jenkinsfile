@@ -6,7 +6,7 @@ pipeline {
             booleanParam(name: 'incPatch', defaultValue: true, description: '')
     }
     environment {
-        SUBMODULE_NAME = 'healthchecks'
+        SUBMODULE_NAME = 'proto-files'
         SS_DEV_ARTIFACTORY_USERNAME = credentials("jenkins-artifactory-username")
         SS_DEV_ARTIFACTORY_PASSWORD = credentials("jenkins-artifactory-password")
     }
