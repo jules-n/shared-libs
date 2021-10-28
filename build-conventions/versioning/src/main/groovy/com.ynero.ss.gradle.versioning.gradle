@@ -22,6 +22,7 @@ def sh(def workDir = project.rootDir, boolean exitOnErr = true, def command) {
 
 def getVersion() {
     sh(null, false, "git fetch -a")
+    sh(null, false, "git fetch --tags")
     def versionSuffix = "${project.name}@"
     def allTags = sh('git tag --list').strip()
             .readLines()
