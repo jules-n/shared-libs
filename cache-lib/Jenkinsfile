@@ -1,0 +1,75 @@
+pipeline {
+    agent any
+    parameters {
+            booleanParam(name: 'incMinor', defaultValue: false, description: '')
+            booleanParam(name: 'incMajor', defaultValue: false, description: '')
+            booleanParam(name: 'incPatch', defaultValue: true, description: '')
+    }
+    environment {
+        SUBMODULE_NAME = 'cache-lib'
+        SS_DEV_ARTIFACTORY_USERNAME = credentials("jenkins-artifactory-username")
+        SS_DEV_ARTIFACTORY_PASSWORD = credentials("jenkins-artifactory-password")
+    }
+    stages {
+        stage('calculate version') {
+            steps {
+                script {
+                    env.CURRENT_VERSION = sh(script: "./gradlew -q :${SUBMODULE_NAME}:printVersion", returnStdout: true)
+                    env.NEXT_VERSION = incrementVersion(env.CURRENT_VERSION - '-SNAPSHOT' - '-dirty', params.incMajor, params.incMinor, params.incPatch)
+                    echo "currentVersion=${env.CURRENT_VERSION}, nextVersions=${env.NEXT_VERSION}"
+                }
+            }
+        }
+        stage('build') {
+            steps {
+                script {
+                    sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
+                          sh(script: "git tag -a ${SUBMODULE_NAME+'@'+env.NEXT_VERSION} -m ${SUBMODULE_NAME+'@'+env.NEXT_VERSION}")
+                    }
+                    //TODO: add "-x integrationTests" if integ tests are used
+                    sh "./gradlew :${SUBMODULE_NAME}:build -x test"
+                }
+            }
+        }
+        stage('test') {
+            steps {
+                script {
+                    sh "./gradlew :${SUBMODULE_NAME}:test"
+                }
+            }
+        }
+        // TODO: add "integration test" stage if exists
+        stage('publish') {
+            steps {
+                script {
+                    sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
+                    sh(script: "git push origin --tags")
+                    }
+                    sh "./gradlew :${SUBMODULE_NAME}:artifactoryPublish"
+                }
+            }
+        }
+    }
+    post {
+        failure {
+             sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
+                  sh(script: "git tag -d ${SUBMODULE_NAME+'@'+env.NEXT_VERSION} || true")
+                  sh(script: "git push --delete origin ${SUBMODULE_NAME+'@'+env.NEXT_VERSION} || true")
+             }
+        }
+    }
+}
+
+def currentVersion(String submoduleName) {
+    sh(script: "./gradlew -q :${subModuleName}:printVersion", returnStdout: true)
+}
+
+def incrementVersion(String version, boolean incMajor = false, boolean incMinor = false, boolean incPatch = true) {
+    def parts = version.split('\\.')
+    def major = parts[0] as int
+    def minor = parts[1] as int
+    def patch = parts[2] as int
+    incMajor ? "${major + 1}.0.0"
+            : incMinor ? "${major}.${minor + 1}.0"
+            : "${major}.${minor}.${patch + 1}"
+}
