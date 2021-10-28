@@ -28,10 +28,15 @@ artifactory {
     }
 }
 
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
 artifactoryPublish {
     publications {
         mavenJava(MavenPublication){
-            artifact jar
+            from components.java
         }
     }
 }
