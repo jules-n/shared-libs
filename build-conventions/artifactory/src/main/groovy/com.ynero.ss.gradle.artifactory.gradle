@@ -1,6 +1,4 @@
 plugins {
-    id 'java-library'
-    id 'maven-publish'
     id 'com.jfrog.artifactory'
 }
 
@@ -10,23 +8,20 @@ repositories {
     maven {
         url "http://ss-dev-jenkins:8081/artifactory/ss-artifacts/"
         allowInsecureProtocol true
-        credentials {               // Optional resolver credentials (leave out to use anonymous resolution)
+        credentials {
             username = System.getenv('SS_DEV_ARTIFACTORY_USERNAME')
             password = System.getenv('SS_DEV_ARTIFACTORY_PASSWORD')
         }
     }
 }
 
-java {
-    withSourcesJar()
-}
-
 artifactoryPublish {
-    publications {
-        mavenJava(MavenPublication){
-            from components.java
-        }
-    }
+    contextUrl = 'http://ss-dev-jenkins:8081/artifactory/'
+    publications('ALL_PUBLICATIONS')
+
+    clientConfig.publisher.repoKey = 'ss-artifacts'
+    clientConfig.publisher.username = System.getenv('SS_DEV_ARTIFACTORY_USERNAME')
+    clientConfig.publisher.password = System.getenv('SS_DEV_ARTIFACTORY_PASSWORD')
 }
 
 artifactory {
@@ -39,8 +34,11 @@ artifactory {
             password = System.getenv('SS_DEV_ARTIFACTORY_PASSWORD')
         }
         defaults {
-            publications('mavenJava')
-            publishConfigs('archives')
+            publications('ALL_PUBLICATIONS')
+            publishConfigs('archives', 'published')
+            publishBuildInfo = true
+            publishArtifacts = true
+            publishPom = false
         }
     }
 }

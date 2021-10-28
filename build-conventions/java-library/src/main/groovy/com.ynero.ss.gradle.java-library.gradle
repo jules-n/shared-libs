@@ -1,6 +1,7 @@
 plugins {
     id 'com.ynero.ss.gradle.versioning'
     id 'java-library'
+    id 'maven-publish'
 }
 
 ext.set('lombok.version', '1.18.22')
@@ -26,4 +27,24 @@ dependencies {
     compileOnly "org.projectlombok:lombok:${property('lombok.version')}"
     annotationProcessor "org.projectlombok:lombok:${property('lombok.version')}"
 
+}
+
+java {
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionResult()
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+        }
+    }
 }
