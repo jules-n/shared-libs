@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    define {
-      def TAG = ''
-    }
     environment {
         SUBMODULE_NAME = 'healthchecks'
         SS_DEV_ARTIFACTORY_USERNAME = credentials("jenkins-artifactory-username")
@@ -14,8 +11,8 @@ pipeline {
                 script {
                     env.CURRENT_VERSION = sh(script: "./gradlew -q :${SUBMODULE_NAME}:printVersion", returnStdout: true)
                     env.NEXT_VERSION = incrementVersion(env.CURRENT_VERSION - '-SNAPSHOT' - '-dirty')
-                    TAG = env.SUBMODULE_NAME+'@'+NEXT_VERSION
                     echo "currentVersion=${env.CURRENT_VERSION}, nextVersions=${env.NEXT_VERSION}"
+                    env.TAG = env.SUBMODULE_NAME+'@'+env.NEXT_VERSION
                 }
             }
         }
