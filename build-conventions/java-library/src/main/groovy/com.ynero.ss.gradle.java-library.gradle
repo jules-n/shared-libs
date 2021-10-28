@@ -1,7 +1,6 @@
 plugins {
     id 'com.ynero.ss.gradle.versioning'
     id 'java-library'
-    id 'maven-publish'
 }
 
 ext.set('lombok.version', '1.18.22')
@@ -21,15 +20,6 @@ repositories {
     mavenCentral()
 }
 
-//publishing {
-//    publications {
-//        mavenJava(MavenPublication) {
-//            from components.java
-//            // TODO: check out how to add "-sources.jar" publication here too
-//        }
-//    }
-//}
-
 dependencies {
 
     //lombok
@@ -37,5 +27,3 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:${property('lombok.version')}"
 
 }
-
-// TODO: configure all nexus related stuff here (repositories, publishing)

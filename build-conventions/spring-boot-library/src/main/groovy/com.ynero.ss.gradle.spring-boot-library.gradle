@@ -1,6 +1,6 @@
 plugins {
     id 'com.ynero.ss.gradle.java-library'
-    id 'org.springframework.boot' apply false
+//    id 'org.springframework.boot' apply false
     id 'io.spring.dependency-management'
 }
 
@@ -16,10 +16,10 @@ dependencyManagement {
     }
 }
 
-bootJar {
-    enabled = false
-}
-
-jar {
-    enabled = true
-}
+//bootJar {
+//    enabled = false
+//}
+//
+//jar {
+//    enabled = true
+//}

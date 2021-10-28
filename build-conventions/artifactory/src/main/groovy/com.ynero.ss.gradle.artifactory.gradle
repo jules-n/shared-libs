@@ -1,4 +1,5 @@
 plugins {
+    id 'java-library'
     id 'maven-publish'
     id 'com.jfrog.artifactory'
 }
@@ -16,6 +17,18 @@ repositories {
     }
 }
 
+java {
+    withSourcesJar()
+}
+
+artifactoryPublish {
+    publications {
+        mavenJava(MavenPublication){
+            from components.java
+        }
+    }
+}
+
 artifactory {
     contextUrl = 'http://ss-dev-jenkins:8081/artifactory/'
     publish {
@@ -25,18 +38,9 @@ artifactory {
             username = System.getenv('SS_DEV_ARTIFACTORY_USERNAME')
             password = System.getenv('SS_DEV_ARTIFACTORY_PASSWORD')
         }
-    }
-}
-
-java {
-    withSourcesJar()
-    withJavadocJar()
-}
-
-artifactoryPublish {
-    publications {
-        mavenJava(MavenPublication){
-            from components.java
+        defaults {
+            publications('mavenJava')
+            publishConfigs('archives')
         }
     }
 }

@@ -16,3 +16,7 @@ dependencies {
     compileOnly 'com.google.cloud:spring-cloud-gcp-autoconfigure'
     compileOnly 'com.google.cloud:spring-cloud-gcp-pubsub'
 }
+
+configurations.getByName('archives').each {
+    println "archives = ${it}"
+}
