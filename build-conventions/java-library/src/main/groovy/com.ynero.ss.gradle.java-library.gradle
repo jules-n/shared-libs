@@ -21,14 +21,14 @@ repositories {
     mavenCentral()
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-            // TODO: check out how to add "-sources.jar" publication here too
-        }
-    }
-}
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            from components.java
+//            // TODO: check out how to add "-sources.jar" publication here too
+//        }
+//    }
+//}
 
 dependencies {
 

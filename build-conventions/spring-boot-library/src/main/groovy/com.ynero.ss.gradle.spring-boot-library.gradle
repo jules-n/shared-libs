@@ -15,3 +15,11 @@ dependencyManagement {
         mavenBom "com.google.cloud:spring-cloud-gcp-dependencies:${property('spring.cloud.gcp.version')}"
     }
 }
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
