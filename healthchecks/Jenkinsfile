@@ -1,9 +1,9 @@
 pipeline {
     agent any
     parameters {
-            boolean(name: 'incMinor', defaultValue: false)
-            boolean(name: 'incMajor', defaultValue: false)
-            boolean(name: 'incPatch', defaultValue: true)
+            booleanParam(name: 'incMinor', defaultValue: false, description: '')
+            booleanParam(name: 'incMajor', defaultValue: false, description: '')
+            booleanParam(name: 'incPatch', defaultValue: true, description: '')
     }
     environment {
         SUBMODULE_NAME = 'healthchecks'
