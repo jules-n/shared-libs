@@ -3,6 +3,7 @@ pipeline {
     parameters {
             boolean(name: 'incMinor', defaultValue: false)
             boolean(name: 'incMajor', defaultValue: false)
+            boolean(name: 'incPatch', defaultValue: true)
     }
     environment {
         SUBMODULE_NAME = 'healthchecks'
@@ -14,7 +15,7 @@ pipeline {
             steps {
                 script {
                     env.CURRENT_VERSION = sh(script: "./gradlew -q :${SUBMODULE_NAME}:printVersion", returnStdout: true)
-                    env.NEXT_VERSION = incrementVersion(env.CURRENT_VERSION - '-SNAPSHOT' - '-dirty')
+                    env.NEXT_VERSION = incrementVersion(env.CURRENT_VERSION - '-SNAPSHOT' - '-dirty', params.incMajor, params.incMinor, params.incPatch)
                     echo "currentVersion=${env.CURRENT_VERSION}, nextVersions=${env.NEXT_VERSION}"
                 }
             }
