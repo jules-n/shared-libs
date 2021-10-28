@@ -12,7 +12,7 @@ pipeline {
                     env.CURRENT_VERSION = sh(script: "./gradlew -q :${SUBMODULE_NAME}:printVersion", returnStdout: true)
                     env.NEXT_VERSION = incrementVersion(env.CURRENT_VERSION - '-SNAPSHOT' - '-dirty')
                     echo "currentVersion=${env.CURRENT_VERSION}, nextVersions=${env.NEXT_VERSION}"
-                    env.TAG = env.SUBMODULE_NAME+'@'+env.NEXT_VERSION
+                    env.TAG = env.SUBMODULE_NAME+env.NEXT_VERSION
                 }
             }
         }
