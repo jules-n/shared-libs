@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment {
         SUBMODULE_NAME = 'healthchecks'
-        TAG = 'undefined'
     }
     stages {
         stage('calculate version') {
@@ -11,13 +10,13 @@ pipeline {
                     env.CURRENT_VERSION = sh(script: "./gradlew -q :${SUBMODULE_NAME}:printVersion", returnStdout: true)
                     env.NEXT_VERSION = incrementVersion(env.CURRENT_VERSION - '-SNAPSHOT' - '-dirty')
                     echo "currentVersion=${env.CURRENT_VERSION}, nextVersions=${env.NEXT_VERSION}"
-                    env.TAG = env.SUBMODULE_NAME+'@'+env.NEXT_VERSION
                 }
             }
         }
         stage('build') {
             steps {
                 script {
+                    def TAG = env.SUBMODULE_NAME+'@'+env.NEXT_VERSION;
                     sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
                       sh(script: "git tag -a $TAG -m $TAG")
                     }
@@ -58,6 +57,7 @@ pipeline {
     }
     post {
         failure {
+            def TAG = env.SUBMODULE_NAME+'@'+env.NEXT_VERSION;
             sshagent(credentials: ['jenkins-dev-event-receiver-id-rsa']) {
             sh(script: "git tag -d $TAG || true")
             sh(script: "git push --delete origin $TAG || true")
