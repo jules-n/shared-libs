@@ -38,7 +38,7 @@ artifactory {
             publishConfigs('archives', 'published')
             publishBuildInfo = true
             publishArtifacts = true
-            publishPom = true
+            publishPom = false
         }
     }
 }
