@@ -1,12 +1,23 @@
 pipeline {
     agent any
+    parameters {
+        booleanParam(name: 'buildCacheLib', defaultValue: false, description: 'Do you want to build cache-lib?')
+        booleanParam(name: 'buildCommonDtos', defaultValue: false, description: 'Do you want to build common-dtos?')
+        booleanParam(name: 'buildConverters', defaultValue: false, description: 'Do you want to build converters?')
+        booleanParam(name: 'buildHealthchecks', defaultValue: false, description: 'Do you want to build healthchecks?')
+        booleanParam(name: 'buildNonFunctionalLib', defaultValue: false, description: 'Do you want to build non-functional-lib?')
+        booleanParam(name: 'buildProtoFiles', defaultValue: false, description: 'Do you want to build proto-files?')
+        booleanParam(name: 'buildSendingLib', defaultValue: false, description: 'Do you want to build sending-lib?')
+    }
     stages {
         stage('cache-lib') {
             when {
                 allOf {
                     branch comparator: 'REGEXP', pattern: 'main'
                     // "glob" pattern
-                    changeset 'cache-lib/**'
+                    if (!params.buildCacheLib) {
+                        changeset 'cache-lib/**'
+                    }
                 }
             }
             steps {
