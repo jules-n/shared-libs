@@ -21,7 +21,7 @@ def sh(def workDir = project.rootDir, boolean exitOnErr = true, def command) {
 }
 
 def getVersion() {
-    sh(null, false, "git fetch -a")
+    sh(null, false, 'git tag -d $(git tag -l)')
     sh(null, false, "git fetch --tags")
     def versionSuffix = "${project.name}@"
     def allTags = sh('git tag --list').strip()
@@ -30,11 +30,11 @@ def getVersion() {
     def isDirty = sh('git status --porcelain').strip()
     def allVersions = allTags.collect { it - versionSuffix }
             .sort { v1, v2 -> toIntValue(v2) <=> toIntValue(v1) }
-    def currentTag = sh(null, false, 'git tag --points-at HEAD')
+    def currentTags = sh(null, false, 'git tag --points-at HEAD')
             .readLines()
             .findAll { it.startsWith versionSuffix }
             .sort { v1, v2 -> toIntValue(v2 - versionSuffix) <=> toIntValue(v1 - versionSuffix) }
-            .first()
+    def currentTag = currentTags ? currentTags.first() : ''
     def isCleanTag = ((currentTag - versionSuffix) ==~ /^\d+\.\d+\.\d+$/)
     def isSnapshot = !isCleanTag
     if (!allVersions) {
