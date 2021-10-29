@@ -30,13 +30,18 @@ def getVersion() {
     def isDirty = sh('git status --porcelain').strip()
     def allVersions = allTags.collect { it - versionSuffix }
             .sort { v1, v2 -> toIntValue(v2) <=> toIntValue(v1) }
-    def currentTag = sh(null, false, 'git describe --tags').strip()
-    def isCleanTag = (currentTag - versionSuffix) =~ /^\d+\.\d+\.\d+$/
+    def currentTag = sh(null, false, 'git tag --points-at HEAD')
+            .readLines()
+            .findAll { it.startsWith versionSuffix }
+            .sort { v1, v2 -> toIntValue(v2 - versionSuffix) <=> toIntValue(v1 - versionSuffix) }
+            .first()
+    def isCleanTag = ((currentTag - versionSuffix) ==~ /^\d+\.\d+\.\d+$/)
     def isSnapshot = !isCleanTag
     if (!allVersions) {
         allVersions = ['0.0.0']
     }
-    "${allVersions.first()}${isSnapshot ? '-SNAPSHOT' : ''}${isDirty ? '-dirty' : ''}"
+    def version = "${allVersions.first()}${isSnapshot ? '-SNAPSHOT' : ''}${isDirty ? '-dirty' : ''}"
+    version
 }
 
 def toIntValue(String semVer) {
