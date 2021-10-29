@@ -4,6 +4,11 @@ plugins {
 }
 
 dependencies {
+    //spring
+    api 'org.springframework.boot:spring-boot-starter-web'
+    api 'org.springframework.boot:spring-boot-starter-actuator'
+
+    //testing
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
