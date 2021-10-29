@@ -16,7 +16,7 @@ pipeline {
                     branch comparator: 'REGEXP', pattern: 'main'
                     // "glob" pattern
                     anyOf {
-                        params.buildCacheLib
+                        equals expected: true, actual: params.buildCacheLib
                         changeset 'cache-lib/**'
                     }
                 }
