@@ -9,6 +9,12 @@ repositories {
 
 group = 'com.ynero.ss.gradle'
 
+// hacky way of getting values from properties file of root *composite build*
+def mainProps = new Properties()
+new File ("${rootProject.rootDir.parentFile.parentFile}/gradle.properties").withReader { rootPropsReader ->
+    mainProps.load(rootPropsReader)
+}
+
 dependencies {
-    implementation 'org.jfrog.buildinfo:build-info-extractor-gradle:4.24.20'
+    implementation "org.jfrog.buildinfo:build-info-extractor-gradle:${mainProps.get('artifactory.plugin.version')}"
 }

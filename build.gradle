@@ -1,3 +1,10 @@
+plugins {
+    id 'maven-publish'
+
+    // hack to load artifactory plugin classes in root classloader to avoid cast errors in child classloaders
+    id 'com.jfrog.artifactory' apply false
+}
+
 wrapper {
     gradleVersion = project['gradle.version']
     distributionType = 'ALL'

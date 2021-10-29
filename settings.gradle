@@ -1,3 +1,9 @@
+pluginManagement {
+    plugins {
+        id 'com.jfrog.artifactory' version "${getProperty('artifactory.plugin.version')}" apply false
+    }
+}
+
 rootProject.name = 'shared-libs'
 
 // "composite builds" gradle feature for local gradle plugins
