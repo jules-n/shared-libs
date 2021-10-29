@@ -30,7 +30,10 @@ pipeline {
                 allOf {
                     branch comparator: 'REGEXP', pattern: 'main'
                     // "glob" pattern
-                    changeset 'common-dtos/**'
+                    anyOf {
+                        equals expected: true, actual: params.buildCommonDtos
+                        changeset 'common-dtos/**'
+                    }
                 }
             }
             steps {
@@ -42,7 +45,10 @@ pipeline {
                 allOf {
                     branch comparator: 'REGEXP', pattern: 'main'
                     // "glob" pattern
-                    changeset 'converters/**'
+                    anyOf {
+                        equals expected: true, actual: params.buildConverters
+                        changeset 'converters/**'
+                    }
                 }
             }
             steps {
@@ -54,7 +60,10 @@ pipeline {
                 allOf {
                     branch comparator: 'REGEXP', pattern: 'main'
                     // "glob" pattern
-                    changeset 'healthchecks/**'
+                    anyOf {
+                        equals expected: true, actual: params.buildHealthchecks
+                        changeset 'healthchecks/**'
+                    }
                 }
             }
             steps {
@@ -66,7 +75,10 @@ pipeline {
                 allOf {
                     branch comparator: 'REGEXP', pattern: 'main'
                     // "glob" pattern
-                    changeset 'non-functional-lib/**'
+                    anyOf {
+                        equals expected: true, actual: params.buildNonFunctionalLib
+                        changeset 'non-functional-lib/**'
+                    }
                 }
             }
             steps {
@@ -78,7 +90,10 @@ pipeline {
                 allOf {
                     branch comparator: 'REGEXP', pattern: 'main'
                     // "glob" pattern
-                    changeset 'proto-files/**'
+                    anyOf {
+                        equals expected: true, actual: params.buildProtoFiles
+                        changeset 'proto-files/**'
+                    }
                 }
             }
             steps {
@@ -90,7 +105,10 @@ pipeline {
                 allOf {
                     branch comparator: 'REGEXP', pattern: 'main'
                     // "glob" pattern
-                    changeset 'sending-lib/**'
+                    anyOf {
+                        equals expected: true, actual: params.buildSendingLib
+                        changeset 'sending-lib/**'
+                    }
                 }
             }
             steps {
