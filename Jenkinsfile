@@ -128,7 +128,7 @@ pipeline {
                 }
             }
             steps {
-                build job: "rest-exception-handling/${BRANCH_NAME}", wait: false
+                build job: "shared-libs-rest-exception-handling/${BRANCH_NAME}", wait: false
             }
         }
     }
