@@ -19,3 +19,5 @@ include 'proto-files'
 include 'sending-lib'
 include 'cache-lib'
 include 'healthchecks'
+include 'rest-exception-handling'
+

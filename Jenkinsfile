@@ -8,6 +8,7 @@ pipeline {
         booleanParam(name: 'buildNonFunctionalLib', defaultValue: false, description: 'Do you want to build non-functional-lib?')
         booleanParam(name: 'buildProtoFiles', defaultValue: false, description: 'Do you want to build proto-files?')
         booleanParam(name: 'buildSendingLib', defaultValue: false, description: 'Do you want to build sending-lib?')
+        booleanParam(name: 'buildRestExceptionHandling', defaultValue: false, description: 'Do you want to build rest-exception-handling?')
     }
     stages {
         stage('cache-lib') {
@@ -113,6 +114,21 @@ pipeline {
             }
             steps {
                 build job: "shared-libs-sending-lib/${BRANCH_NAME}", wait: false
+            }
+        }
+        stage('rest-exception-handling') {
+            when {
+                allOf {
+                    branch comparator: 'REGEXP', pattern: 'main'
+                    // "glob" pattern
+                    anyOf {
+                        equals expected: true, actual: params.buildRestExceptionHandling
+                        changeset 'rest-exception-handling/**'
+                    }
+                }
+            }
+            steps {
+                build job: "rest-exception-handling/${BRANCH_NAME}", wait: false
             }
         }
     }
